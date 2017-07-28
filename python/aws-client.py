@@ -16,7 +16,7 @@ def write_to_s3(df, s3_bucket, s3_dirpath, output_filename):
     """Writes pandas dframe directly to csv file in s3"""
     s3_client = boto3.client('s3')
     csv_buffer = StringIO()
-    df.to_csv(csv_buffer)
+    df.to_csv(csv_buffer, index=False)
     s3_client.put_object(Bucket=s3_bucket,
                          Key=os.path.join(s3_dirpath, output_filename),
                          Body=csv_buffer.getvalue())
